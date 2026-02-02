@@ -10,6 +10,27 @@ body {
     overflow-x: hidden;
     position: relative;
     color: white;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 /* Video Background */
