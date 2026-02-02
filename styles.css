@@ -553,8 +553,10 @@ body {
     }
     
     .confirm-btn {
-        bottom: 310px;
-        width: 130px;
+        bottom: 34vh;
+        width: 35vw;
+        max-width: 150px;
+        min-width: 120px;
         left: 50%;
     }
     
