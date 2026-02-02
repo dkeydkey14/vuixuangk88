@@ -552,21 +552,22 @@ body {
         left: 48%;
     }
     
+    .lottery-machine {
+        background-size: 105%;
+        background-position: -100% 15%;
+        overflow: hidden;
+        height: 600px;
+    }
+    
     .confirm-btn {
         position: absolute;
-        bottom: auto;
-        top: 330px;
+        bottom: 350px;
+        top: auto;
         width: 35vw;
         max-width: 150px;
         min-width: 120px;
         left: 50%;
         transform: translateX(-50%);
-    }
-    
-    .lottery-machine {
-        background-size: 105%;
-        background-position: -100% 15%;
-        overflow: hidden;
     }
     
     .input-title {
