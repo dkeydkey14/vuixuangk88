@@ -553,7 +553,7 @@ body {
     }
     
     .confirm-btn {
-        bottom: 34vh;
+        bottom: 44vh;
         width: 35vw;
         max-width: 150px;
         min-width: 120px;
@@ -596,6 +596,13 @@ body {
     .tet-image {
         margin-top: -350px;
         margin-left: 0px;
+    }
+}
+
+/* iPhone 14 và các thiết bị có màn hình cao hơn */
+@media (max-width: 768px) and (min-height: 840px) {
+    .confirm-btn {
+        bottom: 33vh;
     }
 }
 
