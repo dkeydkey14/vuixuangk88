@@ -1,0 +1,600 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    color: white;
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.video-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .video-desktop {
+        display: none;
+    }
+    
+    .video-mobile {
+        display: block;
+    }
+}
+
+/* Top Navigation */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 11;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-image {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    margin-left: 20px;
+}
+
+.kjc-logo {
+    display: none;
+}
+
+.vertical-line {
+    display: none;
+}
+
+.jj-logo {
+    display: none;
+}
+
+.slogan {
+    display: none;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #FF6B35, #FF8C42);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+    background: linear-gradient(135deg, #FF8C42, #FF6B35);
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #FF4500, #DC143C);
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    position: relative;
+    z-index: 3;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* Left Panel - Lottery Machine */
+.left-panel {
+    flex: 1;
+    position: relative;
+}
+
+.lottery-machine {
+    background-image: url('img/khung.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 0;
+    position: relative;
+    min-height: 750px;
+    width: 100%;
+    aspect-ratio: auto;
+}
+
+.machine-display {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    background: transparent;
+    padding: 0;
+    width: 70%;
+}
+
+.display-item {
+    text-align: center;
+    background: transparent;
+}
+
+.display-label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFD700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.display-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.input-area {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 44%;
+    transform: translateX(-50%);
+    width: 70%;
+    min-height: auto;
+}
+
+.input-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #FFD700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.account-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
+}
+
+.account-input-wrapper {
+    width: 250px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 2px 5px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    padding: 0 15px;
+    margin: 0 auto;
+    backdrop-filter: blur(5px);
+}
+
+.account-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a1a;
+    outline: none;
+}
+
+.account-input::placeholder {
+    color: rgba(139, 69, 19, 0.4);
+    font-size: 14px;
+}
+
+.account-input:focus {
+    color: #8B4513;
+}
+
+.number-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
+}
+
+.number-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-image: url('img/bong.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.number-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #8B4513;
+    outline: none;
+    border-radius: 50%;
+}
+
+.number-circle.active {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.lottery-balls-bg {
+    display: none;
+}
+
+.ball-bg {
+    display: none;
+}
+
+.confirm-btn {
+    position: absolute;
+    bottom: 80px;
+    left: 44%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 60px;
+    padding: 0;
+    background: transparent;
+    background-image: url('img/xacnhan.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 0;
+    color: transparent;
+    font-size: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    box-shadow: none;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.confirm-btn:hover {
+    transform: translateX(-50%) translateY(-2px) scale(1.05);
+    opacity: 0.9;
+}
+
+.arrow-left, .arrow-right {
+    display: none;
+}
+
+.confirm-btn span:not(.arrow-left):not(.arrow-right) {
+    display: none;
+}
+
+.decorative-ball {
+    display: none;
+}
+
+.crown {
+    position: absolute;
+    top: -15px;
+    font-size: 30px;
+}
+
+.ball-number {
+    position: relative;
+    z-index: 1;
+}
+
+.gift-box {
+    display: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Right Panel */
+.right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tet-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.game-title-section {
+    text-align: center;
+}
+
+.title-banner {
+    background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+    padding: 20px 40px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.5);
+}
+
+.main-title {
+    font-size: 42px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-size: 56px;
+    font-weight: bold;
+    color: #FFA500;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.description-banner {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 15px 30px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.description-banner p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8B4513;
+    margin: 0;
+}
+
+.rewards-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.reward-box {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+    border: 3px solid #FFD700;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s;
+}
+
+.reward-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+}
+
+.reward-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reward-points {
+    font-size: 32px;
+    font-weight: bold;
+    color: #DC143C;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reward-desc {
+    font-size: 14px;
+    color: #8B4513;
+    font-weight: 500;
+}
+
+.floating-ticket {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #8B4513;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+    animation: float 4s ease-in-out infinite;
+    z-index: 3;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .main-container {
+        flex-direction: column;
+    }
+    
+    .rewards-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .top-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 20px;
+    }
+    
+    .logo-image {
+        height: 58px;
+    }
+    
+    .nav-right {
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+    
+    .nav-btn:not(.login-btn) {
+        display: none;
+    }
+    
+    .nav-btn {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    
+    .main-container {
+        padding: 20px;
+    }
+    
+    .rewards-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .subtitle {
+        font-size: 36px;
+    }
+    
+    .main-title {
+        font-size: 28px;
+    }
+    
+    .number-inputs {
+        gap: 10px;
+    }
+    
+    .number-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .number-input {
+        font-size: 28px;
+    }
+    
+    .input-area {
+        top: 22%;
+        left: 48%;
+    }
+    
+    .confirm-btn {
+        bottom: 310px;
+        width: 130px;
+        left: 50%;
+    }
+    
+    .lottery-machine {
+        background-size: 105%;
+        background-position: -100% 15%;
+        overflow: hidden;
+    }
+    
+    .input-title {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    
+    .account-input-wrapper {
+        width: 180px;
+        height: 40px;
+    }
+    
+    .account-input {
+        font-size: 14px;
+    }
+    
+    .account-input::placeholder {
+        font-size: 12px;
+    }
+    
+    .number-circle {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .number-input {
+        font-size: 18px;
+    }
+    
+    .tet-image {
+        margin-top: -350px;
+        margin-left: 0px;
+    }
+}
+
+
