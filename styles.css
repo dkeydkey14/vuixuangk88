@@ -606,4 +606,11 @@ body {
     }
 }
 
+/* Các thiết bị có màn hình nhỏ hơn (như Galaxy S series) */
+@media (max-width: 768px) and (max-height: 750px) {
+    .confirm-btn {
+        bottom: 53vh;
+    }
+}
+
 
