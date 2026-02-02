@@ -553,11 +553,14 @@ body {
     }
     
     .confirm-btn {
-        bottom: 44vh;
+        position: absolute;
+        bottom: auto;
+        top: 330px;
         width: 35vw;
         max-width: 150px;
         min-width: 120px;
         left: 50%;
+        transform: translateX(-50%);
     }
     
     .lottery-machine {
@@ -599,11 +602,5 @@ body {
     }
 }
 
-/* iPhone 14 và các thiết bị có màn hình cao hơn */
-@media (max-width: 768px) and (min-height: 840px) {
-    .confirm-btn {
-        bottom: 33vh;
-    }
-}
 
 
