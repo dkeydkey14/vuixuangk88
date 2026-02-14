@@ -184,6 +184,14 @@ function stopFireworks() {
     }
 }
 
+// Sự kiện bắt đầu: 11:00 ngày 15/02/2026 giờ Việt Nam (UTC+7)
+// 11:00 UTC+7 = 04:00 UTC
+const EVENT_START_DATE = new Date(Date.UTC(2026, 1, 15, 4, 0, 0));
+
+function isEventStarted() {
+    return Date.now() >= EVENT_START_DATE.getTime();
+}
+
 // API auto-approve
 const API_URL = 'https://xuan03.dklive6886.dev/api/admin/auto-approve';
 
@@ -217,6 +225,11 @@ confirmBtn.addEventListener('click', async () => {
     if (numbers.length !== 4) {
         showPopup('warning', 'Vui lòng nhập đủ 4 số đuôi tài khoản!');
         if (numberInputs[0]) numberInputs[0].focus();
+        return;
+    }
+
+    if (!isEventStarted()) {
+        showPopup('warning', 'Sự kiện chưa bắt đầu!\n\nBắt đầu từ 11:00 ngày 15/02/2026 (giờ Việt Nam).');
         return;
     }
 
