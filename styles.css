@@ -723,6 +723,7 @@ input, textarea {
     margin: 0 0 24px;
     color: #fff;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    white-space: pre-line;
 }
 
 .popup-box.success .popup-message {
