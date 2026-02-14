@@ -1,6 +1,7 @@
-// Countdown Timer
+// Countdown Timer (chỉ chạy nếu có element #countdown)
 function updateCountdown() {
     const countdownElement = document.getElementById('countdown');
+    if (!countdownElement) return;
     let time = countdownElement.textContent.split(':');
     let hours = parseInt(time[0]);
     let minutes = parseInt(time[1]);
@@ -62,31 +63,185 @@ function updateActiveCircle() {
     });
 }
 
+// ========== POPUP ==========
+const popupOverlay = document.getElementById('popup-overlay');
+const popupBox = document.getElementById('popup-box');
+const popupMessage = document.getElementById('popup-message');
+const popupIcon = document.getElementById('popup-icon');
+const popupClose = document.getElementById('popup-close');
+const fireworksCanvas = document.getElementById('fireworks-canvas');
+
+function showPopup(type, message) {
+    if (!popupOverlay || !popupBox) return;
+    popupBox.className = 'popup-box ' + type;
+    popupIcon.textContent = type === 'success' ? '🎉' : type === 'error' ? '⚠️' : '💬';
+    popupMessage.textContent = message || (type === 'success' ? 'Thành công' : 'Đã xảy ra lỗi.');
+    popupOverlay.classList.add('is-open');
+    popupOverlay.setAttribute('aria-hidden', 'false');
+    if (type === 'success') startFireworks();
+}
+
+function closePopup() {
+    if (!popupOverlay) return;
+    popupOverlay.classList.remove('is-open');
+    popupOverlay.setAttribute('aria-hidden', 'true');
+    stopFireworks();
+}
+
+if (popupClose) popupClose.addEventListener('click', closePopup);
+if (popupOverlay) {
+    popupOverlay.addEventListener('click', (e) => {
+        if (e.target === popupOverlay) closePopup();
+    });
+}
+
+// Pháo hoa (chỉ khi thành công)
+let fireworksRAF = null;
+const FIREWORK_COLORS = ['#FFD700', '#FF6B35', '#00FF88', '#FF1493', '#00BFFF', '#FFE135'];
+
+function startFireworks() {
+    const canvas = fireworksCanvas;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function sizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    sizeCanvas();
+    window.addEventListener('resize', sizeCanvas);
+    const removeResize = () => window.removeEventListener('resize', sizeCanvas);
+    setTimeout(removeResize, 8000);
+    const particles = [];
+    let burstCount = 0;
+    const maxBursts = 8;
+    const burstInterval = 280;
+
+    function createBurst() {
+        const x = canvas.width * (0.2 + Math.random() * 0.6);
+        const y = canvas.height * (0.25 + Math.random() * 0.35);
+        const color = FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)];
+        const count = 45 + Math.floor(Math.random() * 25);
+        for (let i = 0; i < count; i++) {
+            const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+            const speed = 3 + Math.random() * 5;
+            particles.push({
+                x, y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                color,
+                life: 1,
+                decay: 0.012 + Math.random() * 0.01,
+                size: 2 + Math.random() * 2
+            });
+        }
+    }
+
+    function animate() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.12;
+            p.vx *= 0.98;
+            p.vy *= 0.98;
+            p.life -= p.decay;
+            if (p.life <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        if (burstCount < maxBursts || particles.length > 0) {
+            fireworksRAF = requestAnimationFrame(animate);
+        }
+    }
+
+    const scheduleBursts = () => {
+        createBurst();
+        burstCount++;
+        if (burstCount < maxBursts) setTimeout(scheduleBursts, burstInterval);
+    };
+    scheduleBursts();
+    animate();
+}
+
+function stopFireworks() {
+    if (fireworksRAF) {
+        cancelAnimationFrame(fireworksRAF);
+        fireworksRAF = null;
+    }
+    const canvas = fireworksCanvas;
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
+// API auto-approve
+const API_URL = 'https://xuan03.dklive6886.dev/api/admin/auto-approve';
+
 // Confirm Button
 const confirmBtn = document.querySelector('.confirm-btn');
 const accountInput = document.querySelector('.account-input');
 
-confirmBtn.addEventListener('click', () => {
+function setConfirmLoading(loading) {
+    if (!confirmBtn) return;
+    confirmBtn.disabled = loading;
+    confirmBtn.style.pointerEvents = loading ? 'none' : '';
+    confirmBtn.setAttribute('data-loading', loading ? '1' : '0');
+}
+
+function resetForm() {
+    if (accountInput) accountInput.value = '';
+    numberInputs.forEach(input => { input.value = ''; });
+    if (accountInput) accountInput.focus();
+}
+
+confirmBtn.addEventListener('click', async () => {
     const account = accountInput?.value.trim() || '';
     const numbers = Array.from(numberInputs).map(input => input.value).join('');
     
     if (!account) {
-        alert('Vui lòng nhập tài khoản!');
+        showPopup('warning', 'Vui lòng nhập tài khoản!');
         if (accountInput) accountInput.focus();
         return;
     }
     
-    if (numbers.length === 4) {
-        alert('Đã xác nhận:\nTài khoản: ' + account + '\n4 số đuôi: ' + numbers);
-        // Reset inputs
-        if (accountInput) accountInput.value = '';
-        numberInputs.forEach(input => {
-            input.value = '';
-        });
-        if (accountInput) accountInput.focus();
-    } else {
-        alert('Vui lòng nhập đủ 4 số đuôi tài khoản!');
+    if (numbers.length !== 4) {
+        showPopup('warning', 'Vui lòng nhập đủ 4 số đuôi tài khoản!');
         if (numberInputs[0]) numberInputs[0].focus();
+        return;
+    }
+
+    setConfirmLoading(true);
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: account,
+                bankAccount: numbers
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        
+        if (data.success === true && data.approved === true) {
+            showPopup('success', data.message || 'Thành công');
+            resetForm();
+        } else {
+            showPopup('error', data.message || 'Nhận khuyến mãi thất bại, vui lòng liên hệ CSKH.');
+        }
+    } catch (err) {
+        showPopup('error', 'Lỗi kết nối. Vui lòng thử lại sau.');
+    } finally {
+        setConfirmLoading(false);
     }
 });
 
